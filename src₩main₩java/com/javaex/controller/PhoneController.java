@@ -2,6 +2,7 @@ package com.javaex.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,13 +17,25 @@ import com.javaex.vo.PersonVo;
 
 public class PhoneController {
 
+	//필드
+	@Autowired
+	PhoneDao phoneDao;
+	//셍성자
+	
+	//메소드 gs
+	
+	//메소드 일반
+	
 	// 리스트
 	@RequestMapping(value = "/list", method = { RequestMethod.GET, RequestMethod.POST })
 	public String list(Model model) {
 		System.out.println("[PhoneController.list]");
 
 		// dao사용
-		PhoneDao phoneDao = new PhoneDao();
+		//오토와이어로 해결, 폰다오 @레파지토리확인!!
+		//PhoneDao phoneDao = new PhoneDao();
+		
+		//dao의 메소드로 데이터 가져오기
 		List<PersonVo> personList = phoneDao.getPersonList();
 		System.out.println(personList);
 
@@ -50,10 +63,10 @@ public class PhoneController {
 		System.out.println(personvo);
 
 		// dao사용할것
-		PhoneDao phonedao = new PhoneDao();
+		//PhoneDao phoneDao = new PhoneDao();
 
 		// dao의 personinsert() 이용해서 데이터 저장
-		phonedao.personInsert(personvo);
+		phoneDao.personInsert(personvo);
 
 		// view --> 리다이렉트 (화면이 필요없다, 일만 해주면댐)
 		return "redirect:/list";
@@ -66,8 +79,8 @@ public class PhoneController {
 		System.out.println("[PhoneController.Delete]");
 
 		// Dao 생성(메소드이용)
-		PhoneDao pDao = new PhoneDao();
-		pDao.personDelete(pId);
+		//PhoneDao pDao = new PhoneDao();
+		phoneDao.personDelete(pId);
 
 		// view -->리다이렉트
 
@@ -80,7 +93,7 @@ public class PhoneController {
 	public String updateForm(Model model, @RequestParam("id") int personId) {
 		System.out.println("[PhoneController.updateForm]");
 
-		PhoneDao phoneDao = new PhoneDao();
+		//PhoneDao phoneDao = new PhoneDao();
 		PersonVo personvo = phoneDao.getPerson(personId);
 
 		model.addAttribute("personvo", personvo);
@@ -100,10 +113,10 @@ public class PhoneController {
 		System.out.println(personvo);
 
 		// dao사용할것
-		PhoneDao phonedao = new PhoneDao();
+		//PhoneDao phonedao = new PhoneDao();
 
 		// dao의 personinsert() 이용해서 데이터 저장
-		phonedao.personUpdate(personvo);
+		phoneDao.personUpdate(personvo);
 
 		// view --> 리다이렉트 (화면이 필요없다, 일만 해주면댐)
 		
